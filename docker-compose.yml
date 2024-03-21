@@ -1,0 +1,17 @@
+version: '3.7'
+services:
+  redis:
+    image: redis:7
+    container_name: redis_cache
+    command: --port 5370
+    expose:
+      - 5370
+
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: fastapi_app
+    ports:
+      - 9999:8000
+    depends_on: [redis]
